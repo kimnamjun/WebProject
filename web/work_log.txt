@@ -1,0 +1,73 @@
+----------------------------------------------------------------------------------------------------
+
+# 프로젝트 시작하기
+
+nodejs, npm과 mysql을 설치한다.
+프로젝트를 만들 폴더에 'npm init' 명령어를 입력한다. 이 명령어는 'package.json' 파일을 생성한다.
+main과 script의 start의 내용을 수정했다.
+'npm start' 명령어를 입력하여 'index.js'를 실행한다.
+브라우저에 'localhost:3000'으로 들어가면 웹 페이지가 나온다.
+
+----------------------------------------------------------------------------------------------------
+
+# 모듈 설치하기
+
+'package.json'의 dependencies를 추가하기 위해 다음과 같은 명령어를 입력한다.
+'npm install -s express'
+이는 express를 설치하고 적용하는 명령어이며, 같은 방식으로 다른 모듈도 설치할 수 있다.
+
+----------------------------------------------------------------------------------------------------
+
+# 라우팅
+
+main                main은 기본 경로
+ㄴ login
+   ㄴ main
+   ㄴ process       process는 작업을 수행하는 일
+   ㄴ logout
+ㄴ signup
+   ㄴ main
+   ㄴ process
+ㄴ notice
+   ㄴ main
+   ㄴ process
+   ㄴ create        게시물 작성하기
+   ㄴ :num          게시물 보기 (:num은 순서에 관계가 있음)
+
+기본적인 HTML의 형태는 '/lib/template.js' 파일에 있으며,
+형태가 바뀌는 일부 내용은 routes 폴더의 해당 파일에 있다.
+
+----------------------------------------------------------------------------------------------------
+
+# MySQL
+
+database의 이름은 'web_project', 포트 번호는 3306으로 했다.
+비밀번호는 'hidden_data.js' 파일에 별도로 보관했다.
+database를 만드는데 필요한 명령어는 다음과 같다.
+
+> CREATE DATABASE web_project;
+
+> CREATE TABLE users(
+    id VARCHAR(16) PRIMARY KEY,
+    password CHAR(32) NOT NULL,
+    name VARCHAR(16) NOT NULL,
+    phone_number VARCHAR(16)
+);
+
+> CREATE TABLE notice(
+    num INT(16) PRIMARY KEY AUTO_INCREMENT,
+    id VARCHAR(16) NOT NULL,
+    title VARCHAR(200) NOT NULL,
+    text VARCHAR(2000) NOT NULL
+);
+
+위 테이블은 AUTO_INCREMENT 옵션이 있기 때문에,
+> INSERT INTO notice(id, title, text) VALUES('id', 'title', 'text');
+위와 같이 데이터를 삽입하면 된다.
+
+----------------------------------------------------------------------------------------------------
+
+# 보안 관련
+ㄴ sanitizeHtml : <script> 등의 태그 방지
+ㄴ mysql.escape : sql 인젝션 방지
+ㄴ helmet :

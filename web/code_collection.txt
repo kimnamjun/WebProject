@@ -1,0 +1,30 @@
+app.use(session({
+    secret: 'Enfgdmftndjqtsmsdkagh',
+    resave: false,
+    saveUninitialized: true,
+    store: new FileStore(),
+    cookie: {
+        maxAge: 1000 * 60 * 10 // 쿠키 유효기간 10분
+    }
+}));
+
+var connection = mysql.createConnection({
+    host     : 'localhost',
+    user     : 'root',
+    password : 'qudtls59!',
+    port     : 3306,
+    database : 'company'
+})
+
+connection.connect(()=>{
+    console.log("database connect");
+});
+
+connection.query(`INSERT INTO users VALUES (${user_id}, ${encrypted_password}, ${user_name}, ${phone_number})`, function(err, rows, fields){
+            if (err) {
+                console.log('쿼리 수행 중 문제가 발생했습니다.', err);
+            }
+            else {
+                console.log('The solution is: ', rows);
+            }    
+        });
